@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Entity({ name: 'TURNO' }) // Nombre de la tabla en mayúsculas
+@Entity({ name: 'TURNO' })
 export class Turno {
   @PrimaryGeneratedColumn({ name: 'TUR_ID' })
   id: number;

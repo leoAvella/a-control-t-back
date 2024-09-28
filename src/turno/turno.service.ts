@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Turno } from './entities/turno.entity';
 import { CreateTurnoDto } from './dto/create-turno.dto';
 import { UpdateTurnoDto } from './dto/update-turno.dto';
+import { TurnoParamsDto } from './dto/turno-params.dto';
 
 @Injectable()
 export class TurnoService {
@@ -15,18 +16,31 @@ export class TurnoService {
     return 'This action adds a new turno';
   }
 
-  async findAll(): Promise<Turno[]> {
-    console.log({
-      host: process.env.DB_HOST,
-      port: process.env.DB_PORT,
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
-    });
+  async findAll(
+    params: TurnoParamsDto,
+  ): Promise<{ data: Turno[]; total: number }> {
     try {
-      return await this.turnoRepository.find({
-        take: 20,
+      const { page, size, sort, sortby, ...filters } = params;
+      const queryBuilder = this.turnoRepository.createQueryBuilder('turno');
+      Object.keys(filters).forEach((key) => {
+        const value = filters[key];
+        if (value !== undefined && value !== null) {
+          queryBuilder.andWhere(`turno.${key} = :${key}`, { [key]: value });
+        }
       });
+
+      if (sortby) {
+        const order = sort === 'ASC' ? 'ASC' : 'DESC';
+        queryBuilder.orderBy(`turno.${sortby}`, order);
+      }
+      const skip = page * size;
+      console.log("page: ", page, "size", size,  page * size);
+      queryBuilder.skip(skip).take(size);
+      const [data, total] = await queryBuilder.getManyAndCount();
+      return {
+        total,
+        data,
+      };
     } catch (error) {
       console.error('Error al buscar turnos:', error);
       throw error; // O maneja el error de alguna manera
