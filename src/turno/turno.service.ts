@@ -5,6 +5,7 @@ import { Turno } from './entities/turno.entity';
 import { CreateTurnoDto } from './dto/create-turno.dto';
 import { UpdateTurnoDto } from './dto/update-turno.dto';
 import { TurnoParamsDto } from './dto/turno-params.dto';
+import { findWithPaginationAndFilters } from 'src/common/utils/query';
 
 @Injectable()
 export class TurnoService {
@@ -19,36 +20,11 @@ export class TurnoService {
   async findAll(
     params: TurnoParamsDto,
   ): Promise<{ data: Turno[]; total: number }> {
-    try {
-      const { page, size, sort, sortby, ...filters } = params;
-      const queryBuilder = this.turnoRepository.createQueryBuilder('turno');
-      Object.keys(filters).forEach((key) => {
-        const value = filters[key];
-        if (value !== undefined && value !== null) {
-          queryBuilder.andWhere(`turno.${key} = :${key}`, { [key]: value });
-        }
-      });
-
-      if (sortby) {
-        const order = sort === 'ASC' ? 'ASC' : 'DESC';
-        queryBuilder.orderBy(`turno.${sortby}`, order);
-      }
-      const skip = page * size;
-      console.log("page: ", page, "size", size,  page * size);
-      queryBuilder.skip(skip).take(size);
-      const [data, total] = await queryBuilder.getManyAndCount();
-      return {
-        total,
-        data,
-      };
-    } catch (error) {
-      console.error('Error al buscar turnos:', error);
-      throw error; // O maneja el error de alguna manera
-    }
+    return findWithPaginationAndFilters(this.turnoRepository, params, 'turno');
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} turno`;
+  async findOne(id: number): Promise<Turno | null> {
+    return await this.turnoRepository.findOneBy({ id });
   }
 
   update(id: number, updateTurnoDto: UpdateTurnoDto) {
