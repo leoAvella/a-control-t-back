@@ -1,27 +1,31 @@
 import { Injectable } from '@nestjs/common';
+import { ResponsePagination } from 'src/common/interfaces/params';
+import { findWithPaginationAndFilters } from 'src/common/utils/query';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from './entities/user.entity';
+import { userParams } from './params/userTableParams';
+import { UserParamsDto } from './dto/user-params.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
+  constructor(
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
+  ) {}
   create(createUserDto: CreateUserDto) {
     return 'This action adds a new user';
   }
 
-  findAll(): User[] {
-    return [
-      {
-        name: 'Carlos Vargas',
-        level: 'Admin',
-        initials: 'CV'
-      },
-      {
-        name: 'Jorge Diaz',
-        level: 'Admin',
-        initials: 'JDM'
-      },
-    ];
+  async findAll(params: UserParamsDto): Promise<ResponsePagination> {
+    return findWithPaginationAndFilters(
+      this.userRepository,
+      params,
+      'funcionario',
+      userParams,
+    );
   }
 
   findOne(id: number) {

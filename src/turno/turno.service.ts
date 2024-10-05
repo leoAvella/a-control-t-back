@@ -6,6 +6,8 @@ import { CreateTurnoDto } from './dto/create-turno.dto';
 import { UpdateTurnoDto } from './dto/update-turno.dto';
 import { TurnoParamsDto } from './dto/turno-params.dto';
 import { findWithPaginationAndFilters } from 'src/common/utils/query';
+import { ResponsePagination } from 'src/common/interfaces/params';
+import { turnoParams } from './params/turnoTableParams';
 
 @Injectable()
 export class TurnoService {
@@ -17,10 +19,13 @@ export class TurnoService {
     return 'This action adds a new turno';
   }
 
-  async findAll(
-    params: TurnoParamsDto,
-  ): Promise<{ data: Turno[]; total: number }> {
-    return findWithPaginationAndFilters(this.turnoRepository, params, 'turno');
+  async findAll(params: TurnoParamsDto): Promise<ResponsePagination> {
+    return findWithPaginationAndFilters(
+      this.turnoRepository,
+      params,
+      'turno',
+      turnoParams,
+    );
   }
 
   async findOne(id: number): Promise<Turno | null> {

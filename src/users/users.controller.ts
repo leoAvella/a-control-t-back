@@ -6,10 +6,15 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserParamsDto } from './dto/user-params.dto';
+import { ApiResponse } from '@nestjs/swagger';
+import { ApiQueries } from 'src/common/decorators/api-queries.decorator';
+import { userTableParams } from './params/userTableParams';
 
 @Controller('users')
 export class UsersController {
@@ -21,8 +26,10 @@ export class UsersController {
   }
 
   @Get()
-  findAll() {
-    return this.usersService.findAll();
+  @ApiQueries(userTableParams)
+  @ApiResponse({ status: 200, description: 'Lista de turnos' })
+  findAll(@Query() query: UserParamsDto): Promise<any> {
+    return this.usersService.findAll(query);
   }
 
   @Get(':id')

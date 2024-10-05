@@ -19,8 +19,7 @@ import { Turno } from './turno/entities/turno.entity';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       synchronize: false, // Desactivar en producción
-      entities: [Turno],
-      //entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
       logging: true,
     }),
   ],
