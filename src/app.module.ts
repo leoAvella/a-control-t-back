@@ -7,6 +7,7 @@ import { TurnoModule } from './turno/turno.module';
 import { Turno } from './turno/entities/turno.entity';
 import { RegionalModule } from './regional/regional.module';
 import { DependenciaModule } from './dependencia/dependencia.module';
+import { AeropuertoModule } from './aeropuerto/aeropuerto.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { DependenciaModule } from './dependencia/dependencia.module';
     }),
     RegionalModule,
     DependenciaModule,
+    AeropuertoModule,
   ],
   controllers: [],
   providers: [],
