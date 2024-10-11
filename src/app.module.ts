@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { TurnoModule } from './turno/turno.module';
 import { Turno } from './turno/entities/turno.entity';
+import { RegionalModule } from './regional/regional.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { Turno } from './turno/entities/turno.entity';
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       logging: true,
     }),
+    RegionalModule,
   ],
   controllers: [],
   providers: [],

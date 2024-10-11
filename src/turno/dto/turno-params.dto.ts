@@ -1,9 +1,8 @@
 // src/turno/dto/turno-params.dto.ts
 
-import { IsOptional, IsString, IsDate, IsEnum } from 'class-validator';
+import { IsOptional, IsString, IsDate } from 'class-validator';
 import { Type } from 'class-transformer';
 import { TableParamsDto } from '../../common/dto/table-params.dto';
-import { SortOption } from '../../common/enums/sort-option.enum';
 
 export class TurnoParamsDto extends TableParamsDto {
   @IsOptional()
