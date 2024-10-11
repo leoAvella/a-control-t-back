@@ -28,7 +28,7 @@ export class UsersController {
 
   @Get()
   @ApiQueries(userTableParams)
-  @ApiResponse({ status: 200, description: 'Lista de turnos' })
+  @ApiResponse({ status: 200, description: 'Lista de usuarios' })
   findAll(@Query() query: UserParamsDto): Promise<any> {
     return this.usersService.findAll(query);
   }
