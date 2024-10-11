@@ -32,8 +32,10 @@ export const findWithPaginationAndFilters = async <Entity>(
       const order = sort === SortOption.ASC ? SortOption.ASC : SortOption.DESC;
       queryBuilder.orderBy(`${entityAlias}.${sortby}`, order);
     }
-    const skip = (page || 0) * (size || 10);
-    queryBuilder.skip(skip).take(size || 10);
+    if (size != 0) {
+      const skip = (page || 0) * (size || 10);
+      queryBuilder.skip(skip).take(size || 10);
+    }
 
     const [data, total] = await queryBuilder.getManyAndCount();
 
@@ -41,7 +43,7 @@ export const findWithPaginationAndFilters = async <Entity>(
       totalRows: total,
       data,
       page: page || 0,
-      totalPages: Math.ceil(total / (size || 10)),
+      totalPages: size != 0 ? Math.ceil(total / (size || 10)) : total,
     };
   } catch (error) {
     console.error(`Error al buscar ${entityAlias}:`, error);

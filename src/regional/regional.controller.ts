@@ -1,7 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { RegionalService } from './regional.service';
 import { CreateRegionalDto } from './dto/create-regional.dto';
 import { UpdateRegionalDto } from './dto/update-regional.dto';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiQueries } from 'src/common/decorators/api-queries.decorator';
+import { regionalTableParams } from './params/regionalTableParams';
+import { RegionalParamsDto } from './dto/regional-params.dto';
 
 @Controller('regional')
 export class RegionalController {
@@ -13,8 +17,13 @@ export class RegionalController {
   }
 
   @Get()
-  findAll() {
-    return this.regionalService.findAll();
+  @ApiOperation({
+    summary: 'Obtener todos  regionales con filtros y paginación',
+  })
+  @ApiQueries(regionalTableParams)
+  @ApiResponse({ status: 200, description: 'Lista de turnos' })
+  findAll(@Query() query: RegionalParamsDto): Promise<any> {
+    return this.regionalService.findAll(query);
   }
 
   @Get(':id')

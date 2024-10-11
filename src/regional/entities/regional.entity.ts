@@ -1,10 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Entity('REGIONAL')
-export class Registro {
-  @PrimaryGeneratedColumn({ name: 'REG_ID', type: 'bigint' })
+@Entity({ name: 'REGIONAL' })
+export class Regional {
+  @PrimaryGeneratedColumn({ name: 'REG_ID' })
   regId: number;
 
-  @Column({ name: 'REG_NOMBRE', type: 'varchar', length: 200 })
+  @Column({ name: 'REG_NOMBRE' })
   regNombre: string;
 }
