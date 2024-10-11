@@ -12,10 +12,11 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserParamsDto } from './dto/user-params.dto';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ApiQueries } from 'src/common/decorators/api-queries.decorator';
 import { userTableParams } from './params/userTableParams';
 
+@ApiTags('Acciones funcionario')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}

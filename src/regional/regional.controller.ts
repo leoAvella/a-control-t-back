@@ -2,11 +2,11 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestj
 import { RegionalService } from './regional.service';
 import { CreateRegionalDto } from './dto/create-regional.dto';
 import { UpdateRegionalDto } from './dto/update-regional.dto';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ApiQueries } from 'src/common/decorators/api-queries.decorator';
 import { regionalTableParams } from './params/regionalTableParams';
 import { RegionalParamsDto } from './dto/regional-params.dto';
-
+@ApiTags('Acciones regional')
 @Controller('regional')
 export class RegionalController {
   constructor(private readonly regionalService: RegionalService) {}

@@ -6,6 +6,7 @@ import { UsersModule } from './users/users.module';
 import { TurnoModule } from './turno/turno.module';
 import { Turno } from './turno/entities/turno.entity';
 import { RegionalModule } from './regional/regional.module';
+import { AeropuertoModule } from './aeropuerto/aeropuerto.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { RegionalModule } from './regional/regional.module';
       logging: true,
     }),
     RegionalModule,
+    AeropuertoModule,
   ],
   controllers: [],
   providers: [],
