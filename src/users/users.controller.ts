@@ -8,13 +8,13 @@ import {
   Delete,
   Query,
 } from '@nestjs/common';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserParamsDto } from './dto/user-params.dto';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ApiQueries } from 'src/common/decorators/api-queries.decorator';
 import { userTableParams } from './params/userTableParams';
+import { ApiQueries } from 'src/common/decorators/api-queries.decorator';
 
 @ApiTags('Acciones funcionario')
 @Controller('users')
