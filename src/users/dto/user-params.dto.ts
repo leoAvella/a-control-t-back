@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer';
 import { IsString, IsOptional, IsDateString, IsNumber, IsEmail, MaxLength } from 'class-validator';
 import { TableParamsDto } from 'src/common/dto/table-params.dto';
 
@@ -82,7 +83,8 @@ export class UserParamsDto extends TableParamsDto {
 
   @IsOptional()
   @IsNumber()
-  dependencia: number;
+  @Type(() => Number) // Esto asegura que se convierta a número
+  dependencia?: number;
 
   @IsOptional()
   @IsString()

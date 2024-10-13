@@ -42,7 +42,7 @@ export const findWithPaginationAndFilters = async <Entity>(
     return {
       totalRows: total,
       data,
-      page: page || 0,
+      page: parseInt(page) || 0,
       totalPages: size != 0 ? Math.ceil(total / (size || 10)) : total,
     };
   } catch (error) {

@@ -30,6 +30,7 @@ export class UsersController {
   @ApiQueries(userTableParams)
   @ApiResponse({ status: 200, description: 'Lista de usuarios' })
   findAll(@Query() query: UserParamsDto): Promise<any> {
+    console.log("query ::::", query);
     return this.usersService.findAll(query);
   }
 

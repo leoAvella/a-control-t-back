@@ -3,22 +3,22 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 @Entity({ name: 'DEPENDENCIA' })
 export class Dependencia {
   @PrimaryGeneratedColumn({ name: 'DEP_ID', type: 'number' })
-  Id: number;
+  id: number;
 
   @Column({ name: 'DEP_NOMBRE', type: 'varchar', length: 200 })
-  Nombre: string;
+  nombre: string;
 
   @Column({ name: 'DEP_ABREVIATURA', type: 'varchar', length: 5 })
-  Abreviatura: string;
+  abreviatura: string;
 
   @Column({ name: 'DEP_AEROPUERTO', type: 'number', nullable: true })
-  Aeropuerto?: number;
+  aeropuerto?: number;
 
   @Column({ name: 'DEP_CATEGORIA', type: 'number', nullable: true })
-  Categoria?: number;
+  categoria?: number;
 
   @Column({ name: 'DEP_AVISO_VENCIMIENTO', type: 'number', default: 0 })
-  AvisoVencimiento: number;
+  avisoVencimiento: number;
 
   @Column({
     name: 'DEP_PROCEDENCIA',
@@ -26,7 +26,7 @@ export class Dependencia {
     length: 50,
     nullable: true,
   })
-  Procedencia?: string;
+  procedencia?: string;
 
   @Column({
     name: 'DEP_PERMITE_CSV',
@@ -34,5 +34,5 @@ export class Dependencia {
     default: 0,
     nullable: true,
   })
-  PermiteCsv?: number;
+  permiteCsv?: number;
 }
