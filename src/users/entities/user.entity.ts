@@ -56,7 +56,7 @@ export class User {
   @Column({ name: 'FUN_ESTADO', type: 'varchar', length: 20, nullable: true })
   estado: string;
 
-  @Column({ name: 'FUN_DEPENDENCIA', type: 'numeric', nullable: false })
+  @Column({ name: 'FUN_DEPENDENCIA', type: 'number', nullable: false })
   dependencia: number;
 
   @Column({ name: 'FUN_HORAS_EXTRAS', type: 'varchar', length: 1, nullable: true })
