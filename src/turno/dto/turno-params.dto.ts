@@ -1,7 +1,7 @@
 // src/turno/dto/turno-params.dto.ts
 
-import { IsOptional, IsString, IsDate } from 'class-validator';
-import { Type } from 'class-transformer';
+import { IsOptional, IsString, IsDate, Matches, ValidateIf } from 'class-validator';
+import { Transform, Type } from 'class-transformer';
 import { TableParamsDto } from '../../common/dto/table-params.dto';
 
 export class TurnoParamsDto extends TableParamsDto {
@@ -33,6 +33,14 @@ export class TurnoParamsDto extends TableParamsDto {
   @IsDate()
   @Type(() => Date)
   fecha?: Date;
+
+  // @IsOptional()
+  // @Matches(/^\d{2}\/\d{2}\/\d{2}$/, {
+  //   message: 'fecha must be in DD/MM/YY format',
+  // })
+  // fecha?: string;
+  // Cambiamos la validación de fecha a string
+
 
   @IsOptional()
   @IsString()

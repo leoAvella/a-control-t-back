@@ -16,15 +16,28 @@ export const findWithPaginationAndFilters = async <Entity>(
       const value = filters[key];
       const attr = entityParams.find((param) => param.name === key);
       if (attr && value !== undefined && value !== null) {
-        if (attr?.useILike) {
+        if (attr.type === Date) {
+          // queryBuilder.andWhere(
+          //   `${entityAlias}.${key} = TO_DATE(:${key}, 'DD/MM/YY')`,
+          //   { [key]: `${value}` },
+          // );
           queryBuilder.andWhere(
-            `LOWER(${entityAlias}.${key}) LIKE LOWER(:${key})`,
-            { [key]: `%${value}%` },
+            `${entityAlias}.${key} = TO_DATE(:${key}, 'YYYY/MM/DD')`,
+            {
+              [key]: value,
+            },
           );
         } else {
-          queryBuilder.andWhere(`${entityAlias}.${key} = :${key}`, {
-            [key]: value,
-          });
+          if (attr?.useILike) {
+            queryBuilder.andWhere(
+              `LOWER(${entityAlias}.${key}) LIKE LOWER(:${key})`,
+              { [key]: `%${value}%` },
+            );
+          } else {
+            queryBuilder.andWhere(`${entityAlias}.${key} = :${key}`, {
+              [key]: value,
+            });
+          }
         }
       }
     });
